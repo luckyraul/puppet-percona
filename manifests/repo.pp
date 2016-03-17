@@ -25,4 +25,5 @@ class percona::repo
     }
 
     Exec['apt_update'] -> Class['::mysql::server']
+    Exec['apt_update'] -> Class['::mysql::client']
 }
