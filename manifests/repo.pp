@@ -17,7 +17,7 @@ class percona::repo
         ensure   => $ensure,
         location => $location,
         release  => $::lsbdistcodename,
-        repos    => $repos
+        repos    => $repos,
         key      => $key,
         include  => {
             src => false
