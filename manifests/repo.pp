@@ -24,5 +24,5 @@ class percona::repo
         },
     }
 
-    Exec['apt_update'] -> Package['percona-server']
+    Exec['apt_update'] -> Class['::mysql::server']
 }
