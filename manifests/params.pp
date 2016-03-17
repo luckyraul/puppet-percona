@@ -1,6 +1,7 @@
 # Class  percona::params
 class percona::params {
     $version = '5.6'
+    $root_password = undef
     $mysqltuner = true
     $service_ensure = true
     $service_enable = true
