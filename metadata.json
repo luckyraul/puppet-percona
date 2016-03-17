@@ -1,0 +1,35 @@
+{
+  "name": "luckyraul-percona",
+  "version": "1.0.0",
+  "author": "Nikita Tarasov",
+  "summary": "Module for installing and managing Percona Server",
+  "license": "Apache-2.0",
+  "source": "https://github.com/luckyraul/puppet-percona.git",
+  "project_page": "https://github.com/luckyraul/puppet-percona",
+  "issues_url": "https://github.com/luckyraul/puppet-percona/issues",
+  "operatingsystem_support": [
+    {
+      "operatingsystem": "Debian",
+      "operatingsystemrelease": [
+        "7",
+        "8"
+      ]
+    }
+  ],
+  "requirements": [
+    {
+      "name": "pe",
+      "version_requirement": "3.7"
+    },
+    {
+      "name": "puppet",
+      "version_requirement": "3.4"
+    }
+  ],
+  "dependencies": [
+    {"name":"puppetlabs/stdlib","version_requirement":">= 4.1.0"},
+    {"name":"puppetlabs/apt","version_requirement":">= 1.8.0 <= 3.0.0"},
+    {"name":"puppetlabs/mysql","version_requirement":">= 3.5.0"},
+    {"name": "puppetlabs/inifile","version_requirement":">= 1.4.3"}
+  ]
+}
