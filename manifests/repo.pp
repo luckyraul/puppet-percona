@@ -6,8 +6,8 @@ class percona::repo
     $location = 'http://repo.percona.com/apt',
     $repos    = 'main',
     $key      = {
-        id     => '430BDF5C56E7C94E848EE60C1C4CBDCDCD2EFD2A',
-        server => 'ha.pool.sks-keyservers.net',
+        id     => '4D1BB29D63D98E422B2113B19334A25F8507EFA5',
+        server => 'keys.gnupg.net',
     },
 )
 {
