@@ -2,7 +2,7 @@
 
 class percona::install (
     $ensure             = $percona::ensure,
-    $pkg_version        = $percona::package_name,
+    $pkg_version        = $percona::pkg_version,
     $root_password      = $percona::root_password,
     $db_config          = $percona::database_config,
     $pkg_common_default = $percona::common_packages,
@@ -30,6 +30,4 @@ class percona::install (
         service_enabled         => $service_enable,
         service_manage          => $service_ensure,
     }
-
-
 }

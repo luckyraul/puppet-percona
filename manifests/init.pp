@@ -1,5 +1,5 @@
 # == Class: Percona
-class percona(
+class percona (
     $root_password           = $percona::params::root_password,
     $ensure                  = $percona::params::ensure,
     $service_ensure          = $percona::params::service_ensure,
@@ -12,8 +12,6 @@ class percona(
 
 ) inherits percona::params
 {
-    validate_string $pkg_version
-
     anchor { 'percona::begin': }
         -> class  { 'percona::repo': }
         -> class  { 'percona::install': }
