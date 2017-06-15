@@ -9,6 +9,9 @@ class percona::install (
     $remove_default     = $percona::remove_default_accounts,
     $service_ensure     = $percona::service_ensure,
     $service_enable     = $percona::service_enable,
+    $users              = $percona::database_users,
+    $grants             = $percona::database_grants,
+    $databases          = $percona::database_bases,
 )  inherits percona::params
 {
     $pkg_client_default = "percona-server-client-${pkg_version}"
@@ -29,5 +32,8 @@ class percona::install (
         remove_default_accounts => $remove_default,
         service_enabled         => $service_enable,
         service_manage          => $service_ensure,
+        users                   => $users,
+        grants                  => $grants,
+        databases               => $databases,
     }
 }
