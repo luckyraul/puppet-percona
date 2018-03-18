@@ -9,6 +9,7 @@ class percona (
     $database_users          = {},
     $database_grants         = {},
     $database_bases          = {},
+    $ulimit                  = undef,
     $mysqltuner              = $percona::params::mysqltuner,
     $common_packages         = $percona::params::pkg_common_default,
     $remove_default_accounts = $percona::params::remove_default_accounts,

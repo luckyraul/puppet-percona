@@ -12,6 +12,7 @@ class percona::install (
     $users              = $percona::database_users,
     $grants             = $percona::database_grants,
     $databases          = $percona::database_bases,
+    $ulimit             = $percona::ulimit
 )  inherits percona::params
 {
     $pkg_client_default = "percona-server-client-${pkg_version}"
@@ -36,4 +37,33 @@ class percona::install (
         grants                  => $grants,
         databases               => $databases,
     }
+
+    if $ulimit {
+      case $::lsbdistcodename {
+        'jessie', 'stretch': {
+            file { '/etc/systemd/system/mysql.service.d':
+              ensure => 'directory',
+              owner  => 'root',
+              group  => 'root',
+              mode   => '0644',
+            }
+            -> file { '/etc/systemd/system/mysql.service.d/override.conf':
+                ensure  => file,
+                owner   => 'root',
+                group   => 'root',
+                mode    => '0644',
+                content => template('percona/systemd.service.erb'),
+                notify  => Exec['mysql_systemctl_daemon_reload'],
+            }
+
+            exec { 'mysql_systemctl_daemon_reload':
+              command     => '/bin/systemctl daemon-reload',
+              refreshonly => true,
+              require     => File['/etc/systemd/system/mysql.service.d/override.conf'],
+              notify      => Service['mysqld'],
+            }
+        }
+        default: {}
+    }
+  }
 }
