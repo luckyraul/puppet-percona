@@ -13,11 +13,18 @@ class percona (
     $mysqltuner              = $percona::params::mysqltuner,
     $common_packages         = $percona::params::pkg_common_default,
     $remove_default_accounts = $percona::params::remove_default_accounts,
+    # monitoring
+    $monitor                 = $percona::params::monitor,
+    $monitor_username        = $percona::params::monitor_username,
+    $monitor_password        = $percona::params::monitor_password,
+    $monitor_hostname        = $percona::params::monitor_hostname,
+    $monitor_privileges      = $percona::params::monitor_privileges,
 
 ) inherits percona::params
 {
     anchor { 'percona::begin': }
         -> class  { 'percona::repo': }
         -> class  { 'percona::install': }
+        -> class  { 'percona::monitoring': }
         -> anchor { 'percona::end': }
 }

@@ -8,6 +8,11 @@ class percona::params {
     $service_enable = true
     $pkg_common_default = ['percona-toolkit']
     $remove_default_accounts = true
+    $monitor = false
+    $monitor_privileges = [ 'PROCESS', 'SUPER' ]
+    $monitor_username = ''
+    $monitor_password = ''
+    $monitor_hostname = ''
 
     $database_config = {}
 }
