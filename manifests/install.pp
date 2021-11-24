@@ -16,8 +16,16 @@ class percona::install (
     $ulimit             = $percona::ulimit
 )  inherits percona::params
 {
-    $pkg_client_default = "percona-server-client-${pkg_version}"
-    $pkg_server_default = "percona-server-server-${pkg_version}"
+    case $pkg_version {
+      '8.0': {
+        $pkg_client_default = "percona-server-client"
+        $pkg_server_default = "percona-server-server"
+      }
+      default: {
+        $pkg_client_default = "percona-server-client-${pkg_version}"
+        $pkg_server_default = "percona-server-server-${pkg_version}"
+      }
+    }
 
     package { $pkg_common_default:
         ensure  => $ensure,
