@@ -18,22 +18,48 @@ class percona::repo (
     '8.0': {
       $location = 'http://repo.percona.com/ps-80/apt'
     }
+    '8.4': {
+      $location = 'http://repo.percona.com/ps-84-lts/apt'
+    }
     default: {
       $location = 'http://repo.percona.com/apt'
     }
   }
 
-  ::apt::source { 'percona':
-    ensure   => $ensure,
-    location => $location,
-    release  => $facts['os']['distro']['codename'],
-    repos    => $repos,
-    key      => $key,
-    include  => {
-      src => false,
-    },
+  case $facts['os']['family'] {
+    'debian': {
+      case $facts['os']['distro']['codename'] {
+        'bullseye','bookworm': {
+          ::apt::source { 'percona':
+            ensure   => $ensure,
+            location => $location,
+            release  => $facts['os']['distro']['codename'],
+            repos    => $repos,
+            key      => $key,
+            include  => {
+              src => false,
+            },
+          }
+        }
+        default: {
+          file { '/etc/apt/sources.list.d/percona.list':
+            ensure => absent,
+          }
+          apt::keyring { 'percona.asc':
+            source  => 'https://raw.githubusercontent.com/percona/percona-repositories/refs/heads/main/deb/percona-keyring.gpg',
+          } -> apt::source { 'percona':
+            enabled       => true,
+            source_format => 'sources',
+            location      => [$location],
+            repos         => [$repos],
+            architecture  => [$facts['os']['architecture']],
+            keyring       => '/etc/apt/keyrings/percona.asc',
+          }
+        }
+      }
+      Exec['apt_update'] -> Class['mysql::server']
+      Exec['apt_update'] -> Class['mysql::client']
+    }
+    default: {}
   }
-
-  Exec['apt_update'] -> Class['mysql::server']
-  Exec['apt_update'] -> Class['mysql::client']
 }

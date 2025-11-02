@@ -19,13 +19,13 @@ class percona::install (
   $mysqltuner_version = $percona::mysqltuner_version,
 )  inherits percona::params {
   case $pkg_version {
-    '8.0': {
-      $pkg_client_default = 'percona-server-client'
-      $pkg_server_default = 'percona-server-server'
-    }
-    default: {
+    '5.7': {
       $pkg_client_default = "percona-server-client-${pkg_version}"
       $pkg_server_default = "percona-server-server-${pkg_version}"
+    }
+    default: {
+      $pkg_client_default = 'percona-server-client'
+      $pkg_server_default = 'percona-server-server'
     }
   }
 

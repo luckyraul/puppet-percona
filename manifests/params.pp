@@ -4,7 +4,7 @@ class percona::params {
   $version = '5.7'
   $root_password = undef
   $mysqltuner = true
-  $mysqltuner_version = '2.6.0'
+  $mysqltuner_version = '2.7.0'
   $service_name = 'mysql'
   $service_ensure = true
   $service_enable = true
