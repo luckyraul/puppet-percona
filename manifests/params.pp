@@ -8,7 +8,7 @@ class percona::params {
   $service_name = 'mysql'
   $service_ensure = true
   $service_enable = true
-  $pkg_common_default = ['percona-toolkit']
+  $pkg_common_default = []
   $remove_default_accounts = true
   $monitor = false
   $monitor_privileges = ['PROCESS', 'SUPER']
